@@ -1,0 +1,135 @@
+
+.expense-page {
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* ================= HEADER ================= */
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 28px;
+    color: #181818;
+    font-size: 38px;
+    
+}
+
+.sub-text {
+    margin-top: 4px;
+    color: #6b7280;
+    font-size: 14px;
+
+}
+
+
+/* ================= BUTTONS ================= */
+
+.btn-primary {
+    background: #209a33;
+    color: #ffffff;
+    padding: 10px 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s ease;
+    margin-left: 900px;
+    margin-bottom: -65px; 
+}
+
+.btn-primary:hover {
+    background: #2d8e44;
+}
+
+.view-toggle {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.toggle-btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    background: #f3f4f6;
+    color: #374151;
+    font-size: 14px;
+    margin-top: -10px;
+}
+
+.toggle-btn.active {
+    background: #6366f1;
+    color: white;
+}
+
+/* ================= CARD ================= */
+
+.card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+/* ================= TABLE ================= */
+
+.expense-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.expense-table th {
+    text-align: left;
+    padding: 12px;
+    font-size: 14px;
+    color: #6b7280;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.expense-table td {
+    padding: 12px;
+    font-size: 14px;
+    color: #374151;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.expense-table tr:hover {
+    background: #f9fafb;
+}
+
+.amount {
+    font-weight: 600;
+    color: #ef4444;
+}
+
+/* ================= EMPTY STATE ================= */
+
+.empty-text {
+    text-align: center;
+    padding: 30px;
+    color: #9ca3af;
+    font-size: 15px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .view-toggle {
+        flex-wrap: wrap;
+    }
+}
