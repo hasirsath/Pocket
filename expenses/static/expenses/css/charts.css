@@ -1,0 +1,26 @@
+.chart-card {
+    border-radius: 18px;
+    padding: 24px;
+    width: 380px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    margin-top: -300px;
+    margin-left: 700px;
+    background-color: aliceblue;
+}
+
+.chart-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.chart-card .sub-text {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.chart-card canvas {
+    max-width: 120%;
+}

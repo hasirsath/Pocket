@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,106 +10,157 @@
 
     <!-- Optional Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'expenses/css/charts.css' %}">
 
-    <style>
-        body {
-            background-color: #f4f6f9;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+<style>
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 46px;
+    background: #ffffff;
+    border-bottom: 1px solid #E5E7EB;
+}
 
-        footer {
-            margin-top: auto;
-            background: #222;
-            color: #aaa;
-            text-align: center;
-            padding: 10px;
-            font-size: 14px;
-        }
+.logo {
+    
+    font-weight: 800;
 
-        .navbar-brand {
-            font-weight: bold;
-        }
-        
-        .nav-link {
-            color:white;
-        }
-    </style>
+}
+.nav-left{
+    color: #000000;
+    font-weight: bold;
+    font-size: 30px;
+}
+.nav-right {
+    display: flex;
+    gap: 32px;
+}
+
+.nav-right a {
+    text-decoration: none;
+    padding: 7px 14px;
+    margin-left: 2px;
+    color: #374151;
+    font-weight: 500;
+}
+
+.nav-right a:hover {
+    color: #000000;
+}
+
+.btn-logout {
+    background: red;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.btn-logout:hover {
+    background: #c82f2f;
+}
+/* ---------- Background Visuals ---------- */
+
+body {
+    background: #f9fafb;
+    position: relative;
+    overflow-x: hidden;
+    font-family: "Inter", system-ui, sans-serif;
+}
+
+.bg-shapes {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+}
+
+/* Common shape styles */
+.bg-shapes .shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.35;
+}
+
+/* Soft blue */
+.shape-1 {
+    width: 480px;
+    height: 480px;
+    background: #a0bde6;
+    top: -120px;
+    left: -120px;
+}
+
+/* Soft green */
+.shape-2 {
+    width: 520px;
+    height: 520px;
+    background: #a2f1c3;
+    top: 220px;
+    right: -160px;
+}
+
+/* Soft purple / gray */
+.shape-3 {
+    width: 420px;
+    height: 420px;
+    background: #c7b9f9;
+    bottom: -160px;
+    left: 30%;
+}
+
+/* Keeps content above background */
+.page-content {
+    position: relative;
+    z-index: 1;
+}
+
+</style>
 </head>
 <body>
 
-<!-- ================= NAVBAR ================= -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'dashboard' %}">
-            💰 ExpenseTracker
-        </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'add_expense' %}">
-                            Add Expense
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            Expenses
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'dashboard' %}">
-                            Dashboard
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link text-danger" href="{% url 'logout' %}">
-                            Logout
-                        </a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">
-                            Login
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">
-                            Register
-                        </a>
-                    </li>
-                {% endif %}
-
-            </ul>
-        </div>
+    <!-- ===== Background Visuals ===== -->
+    <div class="bg-shapes">
+        <span class="shape shape-1"></span>
+        <span class="shape shape-2"></span>
+        <span class="shape shape-3"></span>
     </div>
-</nav>
 
-<!-- ================= MAIN CONTENT ================= -->
-<main class="container my-4">
-    {% block content %}
-    {% endblock %}
-</main>
+    <!-- ===== Navbar ===== -->
+    <nav class="nav">
+        <div class="nav-left">
+            <span class="nav-logo">💰 Pocket</span>
+        </div>
+
+        <div class="nav-right">
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+            <a href="{% url 'expense_list' %}">Expense</a>
+            <a href="{% url 'budget_list' %}">Budget</a>
+             <a href="{% url 'logout' %}" class="btn-logout">Logout</a>
+        </div>
+
+        
+    </nav>
+
+    <!-- ===== Page Content ===== -->
+    <main class="page-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+
 
 <!-- ================= FOOTER ================= -->
-<footer>
-    © {{ now|date:"Y" }} Expense Tracker |
-    Built with Django 🐍
-</footer>
+
+
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'expenses/js/charts.js' %}"></script>
 </body>
 </html>

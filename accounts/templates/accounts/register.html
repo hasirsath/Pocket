@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register | Pocket</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --primary-soft: #EEF0FF;
+            --text-dark: #1F2937;
+            --text-muted: #6B7280;
+            --border: #E5E7EB;
+            --bg: #F9FAFB;
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Background visuals */
+        .bg-shapes span {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.12;
+        }
+
+        .shape-1 {
+            width: 220px;
+            height: 220px;
+            background: var(--primary);
+            top: -60px;
+            left: -60px;
+        }
+
+        .shape-2 {
+            width: 160px;
+            height: 160px;
+            background: #00B4D8;
+            bottom: 80px;
+            right: -40px;
+        }
+
+        .shape-3 {
+            width: 100px;
+            height: 100px;
+            background: #FFB703;
+            top: 60%;
+            left: 15%;
+        }
+
+        .register-card {
+            position: relative;
+            background: var(--white);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 18px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+            z-index: 10;
+            margin-top: 6%;
+            margin-bottom: 4%;
+        }
+
+        .register-card h2 {
+            margin-bottom: 0.4rem;
+            color: var(--text-dark);
+            font-size: 1.8rem;
+        }
+
+        .register-card p {
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.65rem 0.8rem;
+            margin-bottom: 1.2rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108,99,255,0.15);
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 12px;
+            background: var(--primary);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 25px rgba(108,99,255,0.35);
+        }
+
+        .login-link {
+            margin-top: 1.6rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .login-link a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .error {
+            background: #FEE2E2;
+            color: #991B1B;
+            padding: 0.6rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            .register-card {
+                padding: 2rem 1.6rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Background visuals -->
+<div class="bg-shapes">
+    <span class="shape-1"></span>
+    <span class="shape-2"></span>
+    <span class="shape-3"></span>
+</div>
+
+<div class="register-card">
+    <h2>Create account</h2>
+    <p>Start tracking your expenses smarter 💸</p>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Username</label>
+        <input type="text" name="username" required>
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Password</label>
+        <input type="password" name="password" required>
+
+        <label>Confirm Password</label>
+        <input type="password" name="confirm_password" required>
+
+        <button type="submit" class="btn-register">Create Account</button>
+    </form>
+
+    <div class="login-link">
+        Already have an account?
+        <a href="{% url 'login' %}">Login</a>
+    </div>
+</div>
+
+</body>
+</html>

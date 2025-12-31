@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Expenses | Pocket{% endblock %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'expenses/css/expense_list.css' %}">
+<div class="expense-page">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Expenses</h1>
+       
+    </div>
+    <div class="page-header">
+    <a href="{% url 'add_expense' %}" class="btn-primary">Add Expense</a>
+    </div>
+
+
+
+    <!-- View Toggle -->
+    <div class="view-toggle">
+        <a href="?view=all"
+           class="toggle-btn {% if view_type == 'all' %}active{% endif %}">
+            All Expenses
+        </a>
+
+        <a href="?view=monthly"
+           class="toggle-btn {% if view_type == 'monthly' %}active{% endif %}">
+            Monthly Summary
+        </a>
+    </div>
+
+    
+
+    <!-- ================= ALL EXPENSES ================= -->
+    {% if view_type == 'all' %}
+
+    <div class="card">
+        <h2>All Expenses</h2>
+
+        {% if expenses %}
+        <table class="expense-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in expenses %}
+                <tr>
+                    <td>{{ e.title }}</td>
+                    <td>{{ e.category.name }}</td>
+                    <td class="amount">₹ {{ e.amount }}</td>
+                    <td>{{ e.date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p class="empty-text">No expenses recorded yet.</p>
+        {% endif %}
+    </div>
+
+    <!-- ================= MONTHLY SUMMARY ================= -->
+    {% elif view_type == 'monthly' %}
+
+    <div class="card">
+        <h2>Monthly Summary</h2>
+
+        {% if monthly_expenses %}
+        <table class="expense-table">
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Total Spent</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in monthly_expenses %}
+                <tr>
+                    <td>{{ m.month|date:"F Y" }}</td>
+                    <td class="amount">₹ {{ m.total }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p class="empty-text">No monthly data available.</p>
+        {% endif %}
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

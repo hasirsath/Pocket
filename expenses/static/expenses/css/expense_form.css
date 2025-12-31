@@ -1,0 +1,85 @@
+.expense-card {
+    background: #ffffff;
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 35px 70px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== Page Title ===== */
+.page-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #222;
+}
+
+/* ===== Form Groups ===== */
+.expense-form .form-group {
+    margin-bottom: 20px;
+}
+
+.expense-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #444;
+}
+
+/* ===== Inputs ===== */
+.expense-form input,
+.expense-form select {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.expense-form input:focus,
+.expense-form select:focus {
+    outline: none;
+    border-color: #28a745;
+}
+
+/* ===== Buttons ===== */
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+}
+
+/* Save button (Green like Add Expense) */
+.btn-save {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.btn-save:hover {
+    background-color: #218838;
+}
+
+/* Cancel button */
+.btn-cancel {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-cancel:hover {
+    background-color: #5a6268;
+}
+
+.expense-section {
+    margin-top: 50px;
+}

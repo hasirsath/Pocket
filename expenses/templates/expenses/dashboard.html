@@ -1,126 +1,93 @@
 {% extends "base.html" %}
 {% block title %}Expense Dashboard{% endblock %}
-
+{% load static %}
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Expense Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
-            margin: 0;
-            padding: 0;
-        }
+    <link rel="stylesheet" href="{% static 'expenses/css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'static/expenses/js/charts.js' %}">
+    <link rel="stylesheet" href="{% static 'expenses/css/charts.css' %}">
 
-        .container {
-            width: 85%;
-            margin: 40px auto;
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 6px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .summary {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .total {
-            font-size: 20px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        a.button {
-            padding: 8px 14px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
-
-        .Actions {
-            text-align: center;
-        }
-
-        th {
-            background-color: #f1f1f1;
-        }
-
-        .no-expense {
-            text-align: center;
-            color: #777;
-            margin-top: 20px;
-        }
-    </style>
 </head>
 <body>
+<section class="hero">
+    <div class="hero-text">
+        <h1>Take Control<br>of Your Finances</h1>
+        <p>
+            Track your spending, manage your budget<br>
+            Gain insights into your financial habits and make informed decisions.
+        </p>
 
-<div class="container">
-    <h1>Expense Tracker</h1>
+        <a href="{% url 'dashboard' %}" class="btn-primary">
+            Go to Dashboard
+        </a>
+    </div>
+     <div class="chart-card">
+    <h3>Expense Breakdown</h3>
+    <p class="sub-text">This month</p>
 
-    <div class="summary">
-        <div class="total">
-            Total Spent: ₹{{ total }}
-        </div>
-        <a href="{% url 'add_expense' %}" class="button">Add Expense</a>
+    <canvas id="expensePieChart"></canvas>
     </div>
 
-    {% if expenses %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Amount (₹)</th>
-                    <th>Category</th>
-                    <th>Date</th>
-                    <th colspan="2" class="Actions">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for e in expenses %}
-                    <tr>
-                        <td>{{ e.title }}</td>
-                        <td>{{ e.amount }}</td>
-                        <td>{{ e.category }}</td>
-                        <td>{{ e.date }}</td>
-                        <td><a href="{% url 'edit_expense' e.id %}" class="btn btn-sm btn-warning">Edit</a></td>
-                        <td><a href="{% url 'delete_expense' e.id %}" class="btn btn-sm btn-danger">Delete</a></td>
-                    </tr>
-                {% endfor %}
+    <script>
+    window.pieLabels = {{ pie_labels|safe }};
+    window.pieValues = {{ pie_values|safe }};
+    </script>
+</section>
 
-                <td>
-               
-                </td>
 
-            </tbody>
-        </table>
-    {% else %}
-        <p class="no-expense">No expenses added yet.</p>
-    {% endif %}
+
+<div class="dashboard">
+
+    <!-- SUMMARY CARDS -->
+    <section class="dashboard-cards">
+
+    <!-- Total Expenses -->
+    <div class="card">
+        <h3>Total Expenses</h3>
+        <div class="card-value">
+            ₹ {{ total_spent }}
+        </div>
+        <p class="card-subtext">
+            Overall spending till date
+        </p>
+    </div>
+
+    <!-- This Month -->
+    <div class="card">
+        <h3>This Month</h3>
+        <div class="card-value">
+            ₹ {{ monthly_total }}
+        </div>
+        <p class="card-subtext">
+            Spending in {{ current_month }}
+        </p>
+    </div>
+
+    <!-- Total Entries -->
+    <div class="card">
+        <h3>Total Entries</h3>
+        <div class="card-value">
+            {{ expenses|length }}
+        </div>
+        <p class="card-subtext">
+            Logged expenses
+        </p>
+    </div>
+
+
+
+</section>
+
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/charts.js' %}"></script>
+
 
 {% endblock %}
+
+
+
